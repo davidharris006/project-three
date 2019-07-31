@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CurrencyInput from 'react-currency-input';
 import { Form, Button, Container, Row, Col, Input } from 'reactstrap';
 // import Geosuggest from 'react-geosuggest';
-import "./trips.css"
+// import "./index"
 
 class Trips extends React.Component {
     state = {
@@ -120,11 +120,19 @@ class Trips extends React.Component {
                     <option value="50">WY</option>
                 </select>
                 <br /><br />
+                
+                <button id="add" onClick={this.addNewParticipant}>+Participant</button>
+                <button id="remove" onClick={this.deleteParticipant}>Delete Participant</button>
                 {
+               
                     newParticipant.map((val, idx) => {
-                        let newParticipantId = `newParticipant-${idx}`, paidId = `paid-${idx}`
+                        let newParticipantId = `newParticipant-${idx}`, paidId = `paid-${idx}`;
+                        
                         return (
                             <Container key={idx}>
+                                {/* <button id="add" onClick={this.addNewParticipant}>+Participant</button>
+                                <button id="remove" onClick={this.deleteParticipant}>Delete Participant</button> */}
+                                <br /><br />
 
                                 <label htmlFor={newParticipantId}>{`Name of Participant #${idx + 1}`}</label>
                                 <input
@@ -132,9 +140,8 @@ class Trips extends React.Component {
                                     owed={newParticipantId}
                                     data-id={idx}
                                     id={newParticipantId}
-                                    value={newParticipant[idx].owed}
+                                    // value={newParticipant[idx].owed}
                                     onChange={this.handleChange}
-
                                 /><br /><br />
                                 <label htmlFor={paidId}>Amount Owed</label>
                                 <CurrencyInput
@@ -144,7 +151,7 @@ class Trips extends React.Component {
                                     owed={paidId}
                                     data-id={idx}
                                     id={paidId}
-                                    value={newParticipant[idx].paid}
+                                    // value={newParticipant[idx].paid}
                                     classowed="owed"
                                 />
                                 <br /><br />
@@ -156,20 +163,20 @@ class Trips extends React.Component {
                                     owed={paidId}
                                     data-id={idx}
                                     id={paidId}
-                                    value={newParticipant[idx].paid}
-                                    classowed="paid"
+                                    // value={newParticipant[idx].paid}
+                        
+                                    classowed="owed"
                                 // value={this.props.searchString}
                                 // onChange={this.handleChange}
                                 />
-                                <br /><br />
-                                <button id="add" onClick={this.addNewParticipant}>+Participant</button>
-                                <button id="remove" onClick={this.deleteParticipant}>Delete Participant</button>
-                                <br /><br />
+                                <br />
                             </Container>
                         )
                     })
                 }
+                <br />
                 <input id="submit" type="submit" value="SUBMIT" />
+                <br /><br />
             </form>
         )
     }

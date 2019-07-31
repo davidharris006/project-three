@@ -16,73 +16,72 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       username: null,
-      owed: []
+      owed:[]
     };
 
-    this.getUser = this.getUser.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
-    this.updateUser = this.updateUser.bind(this);
+        this.getUser = this.getUser.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
+        this.updateUser = this.updateUser.bind(this);
+    }
+
+    componentDidMount() {
+        this.getUser()
+        this.getNewEvent()
+        this.getPostEvent();
+    }
+
+    updateUser(userObject) {
+        this.setState(userObject);
+    }
+
+  getNewEvent(){
+    console.log("TCL: App -> getNewEvent ----------------------------> username", this.state.username)
+    
+    axios.get("/user/findOwedByUserId/"+ "davidharris006").then( response => {
+      this.setState ({
+        ...this.state,
+        owed: response.data
+      })
+      console.log("here");
+      console.log(this.state);
+    })
   }
 
-  componentDidMount() {
-    this.getUser();
-    this.getPostEvent();
-    this.getNewEvent()
-  }
-  
-  updateUser(userObject) {
-    this.setState(userObject);
-    // console.log(userObject)
-  }
-  
-  getNewEvent() {
-      console.log("1" + this.state.username);
-      axios.get("/user/findOwedByUserId/" + this.state.username).then(response => {
-        this.setState({
-          ...this.state,
-          owed: response.data
-        });
-        console.log("here");
-        console.log(this.state);
-      });
-    
-  }
-  
-  getPostEvent() {
-    const testEvent = {
-      userId: "ajay",
-      payerId: "luke",
-      amount: 300,
-      eventName: "Snowboarding tickets",
-      paid: false,
-      usersAttended: ["ajay", "jenny", "luke"]
-    };
-    
+  getPostEvent(){
+    const testEvent= {
+        userId: "luke",
+        payerId: "ajay",
+        amount: 600,
+        eventName: "Ruth's chris",
+        paid: false,
+        usersAttended: ["ajay", "jenny", "luke"]
+    }
+
     axios.post("/user/newEvent/", testEvent).then(response => {
       console.log(response);
     });
   }
-  
-  getUser() {
-    axios.get("/user/").then(response => {
-      console.log("Get user response: ");
-      console.log(response.data);
-      if (response.data.user) {
-        console.log("Get User: There is a user saved in the server session: ");
-        
-        this.setState({
-          loggedIn: true,
-          username: response.data.user.username
+
+    getUser() {
+        axios.get("/user/").then(response => {
+            console.log("Get user response: ");
+            console.log(response.data);
+            if (response.data.user) {
+                console.log("Get User: There is a user saved in the server session: ");
+
+                this.setState({
+                    loggedIn: true,
+                    username: response.data.user.username
+                });
+            } else {
+                console.log("Get user: no user");
+                this.setState({
+                    loggedIn: false,
+                    username: null
+                });
+            }
         });
-      } else {
-        console.log("Get user: no user");
-        this.setState({
-          loggedIn: false,
-          username: null
-        });
-      }
-    });
-  }
+    }
   render() {
     return ( 
       <div className="App">
@@ -103,8 +102,8 @@ class App extends Component {
             render={() => <LoginForm updateUser={this.updateUser} />}
           />
           <Route path="/signup" render={() => <Signup />} />
-          <Route path="/trips" render={() => <Trips />}/>
-          <Route path="/ledger" render={() => <Ledger  owed={this.state.owed} />} />
+          <Route path="/trips" render={() => <Trips />} />
+          <Route path="/ledger" render={() => <Ledger owed={this.state.owed}/>} />
         </div>
       </div>
     );

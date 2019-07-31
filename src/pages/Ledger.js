@@ -26,6 +26,7 @@ function Ledger(props) {
         console.log(user);
         return (
           <Individualcard
+          color = "danger"
             username={user.userId}
             amount={user.amount}
             img={user.img}
