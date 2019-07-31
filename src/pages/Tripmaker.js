@@ -6,11 +6,9 @@ class Tripmaker extends Component {
     postOwed = event => {
         axios.post("/user/newEvent",{
             userId: "davidharris006",
-            payerId: "the Mom",
+            youOwedTo: "the Mom",
             amount: 15,
             eventName: "crush",
-            paid:false,
-            usersAttended: ["hello"]
         }).then( response => {console.log(response.data);})
     }
 

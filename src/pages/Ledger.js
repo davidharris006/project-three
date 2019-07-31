@@ -3,6 +3,7 @@ import Individualcard from "../components/individualCard";
 import TotalBalanceCard from "../components/totalBalance";
 import Tripmaker from "../pages/Tripmaker";
 
+
 let totalOwed = 0;
 
 function Ledger(props) {
