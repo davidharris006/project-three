@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Route, Link } from "react-router-dom";
 // components
-import Signup from './components/sign-up'
-import LoginForm from './components/login-form'
-import Navbar from './components/navbar'
-import Home from './components/home'
-import Home2 from './components/home2'
-import Ledger from "./pages/Ledger"
+import Signup from "./components/sign-up";
+import LoginForm from "./components/login-form";
+import Navbar from "./components/navbar";
+import Home from "./components/home";
+import Home2 from "./components/home2";
+import Ledger from "./pages/Ledger";
 
 class App extends Component {
   constructor() {
@@ -15,54 +15,54 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       username: null,
-      owed:[]
+      owed: []
     };
 
-        this.getUser = this.getUser.bind(this);
-        this.componentDidMount = this.componentDidMount.bind(this);
-        this.updateUser = this.updateUser.bind(this);
-    }
-
-    componentDidMount() {
-        this.getUser()
-        this.getNewEvent()
-    }
-
-    updateUser(userObject) {
-        this.setState(userObject);
-    }
-
-  getNewEvent(){
-    axios.get("/user/newEvent").then( response => {
-      this.setState ({
-        ...this.state,
-        owed: response.data
-      })
-      console.log("here");
-      console.log(this.state);
-    })
+    this.getUser = this.getUser.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.updateUser = this.updateUser.bind(this);
   }
 
-    getUser() {
-        axios.get("/user/").then(response => {
-            console.log("Get user response: ");
-            console.log(response.data);
-            if (response.data.user) {
-                console.log("Get User: There is a user saved in the server session: ");
+  componentDidMount() {
+    this.getUser();
+    this.getNewEvent();
+  }
 
-                this.setState({
-                    loggedIn: true,
-                    username: response.data.user.username
-                });
-            } else {
-                console.log("Get user: no user");
-                this.setState({
-                    loggedIn: false,
-                    username: null
-                });
-            }
+  updateUser(userObject) {
+    this.setState(userObject);
+  }
+
+  getNewEvent() {
+    axios.get("/user/newEvent").then(response => {
+      this.setState({
+        ...this.state,
+        owed: response.data
+      });
+      console.log("here");
+      console.log(this.state);
+    });
+  }
+
+  getUser() {
+    axios.get("/user/").then(response => {
+      console.log("Get user response: ");
+      console.log(response.data);
+      if (response.data.user) {
+        console.log("Get User: There is a user saved in the server session: ");
+
+        this.setState({
+          loggedIn: true,
+          username: response.data.user.username
         });
-    }
+      } else {
+        console.log("Get user: no user");
+        this.setState({
+          loggedIn: false,
+          username: null
+        });
+      }
+    });
+  }
   render() {
     return (
       <div className="App">
@@ -83,7 +83,10 @@ class App extends Component {
             render={() => <LoginForm updateUser={this.updateUser} />}
           />
           <Route path="/signup" render={() => <Signup />} />
-          <Route path="/ledger" render={() => <Ledger owed={this.state.owed}/>} />
+          <Route
+            path="/ledger"
+            render={() => <Ledger owed={this.state.owed} />}
+          />
         </div>
       </div>
     );
