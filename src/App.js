@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Route, Link } from "react-router-dom";
 // components
-import Signup from "./components/sign-up";
-import LoginForm from "./components/login-form";
-import Navbar from "./components/navbar";
-import Home from "./components/home";
-import Home2 from "./components/home2";
-import Ledger from "./pages/Ledger";
+import Signup from './components/sign-up'
+import LoginForm from './components/login-form'
+import Navbar from './components/navbar'
+import Home from './components/home'
+import Home2 from './components/home2'
+import Ledger from "./pages/Ledger"
+import Trips from "./components/trips/trips"
 
 class App extends Component {
   constructor() {
@@ -25,27 +26,28 @@ class App extends Component {
 
   componentDidMount() {
     this.getUser();
-    this.getNewEvent()
     this.getPostEvent();
+    this.getNewEvent()
   }
-
+  
   updateUser(userObject) {
     this.setState(userObject);
+    // console.log(userObject)
   }
-
+  
   getNewEvent() {
-    let username = this.state.username
-    console.log("this" + useranme);
-    axios.get("/user/findOwedByUserId/" + this.state.username).then(response => {
-      this.setState({
-        ...this.state,
-        owed: response.data
+      console.log("1" + this.state.username);
+      axios.get("/user/findOwedByUserId/" + this.state.username).then(response => {
+        this.setState({
+          ...this.state,
+          owed: response.data
+        });
+        console.log("here");
+        console.log(this.state);
       });
-      console.log("here");
-      console.log(this.state);
-    });
+    
   }
-
+  
   getPostEvent() {
     const testEvent = {
       userId: "ajay",
@@ -55,19 +57,19 @@ class App extends Component {
       paid: false,
       usersAttended: ["ajay", "jenny", "luke"]
     };
-
+    
     axios.post("/user/newEvent/", testEvent).then(response => {
       console.log(response);
     });
   }
-
+  
   getUser() {
     axios.get("/user/").then(response => {
       console.log("Get user response: ");
       console.log(response.data);
       if (response.data.user) {
         console.log("Get User: There is a user saved in the server session: ");
-
+        
         this.setState({
           loggedIn: true,
           username: response.data.user.username
@@ -88,23 +90,21 @@ class App extends Component {
           updateUser={this.updateUser}
           loggedIn={this.state.loggedIn}
           currentUser={this.state.username}
-        />
+          />
         <div className="container-fluid">
           {/* Routes to different components */}
           <Route
             exact
             path="/"
             render={() => <Home loggedIn={this.state.loggedIn} />}
-          />
+            />
           <Route
             path="/login"
             render={() => <LoginForm updateUser={this.updateUser} />}
           />
           <Route path="/signup" render={() => <Signup />} />
-          <Route
-            path="/ledger"
-            render={() => <Ledger owed={this.state.owed} />}
-          />
+          <Route path="/trips" render={() => <Trips />}/>
+          <Route path="/ledger" render={() => <Ledger  owed={this.state.owed} />} />
         </div>
       </div>
     );

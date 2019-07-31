@@ -10,8 +10,8 @@ function Ledger(props) {
   return (
     <div>
       <div className="row">
-        <div className="col-md-5 center" />
-        <div className="col-md-2~ center">
+        <div className="col-md-5" />
+        <div className="col-md-2">
           {props.owed.forEach(user => {
             return (totalOwed += user.amount);
           })}
@@ -19,7 +19,7 @@ function Ledger(props) {
         </div>
         <Tripmaker />
 
-        <div className="col-md-5~ center" />
+        <div className="col-md-5" />
       </div>
       <h2 className="text-left">Your Ledger: </h2>
       {props.owed.map(user => {
