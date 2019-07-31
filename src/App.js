@@ -34,7 +34,8 @@ class App extends Component {
   }
 
   getNewEvent() {
-    
+    let username = this.state.username
+    console.log("this" + useranme);
     axios.get("/user/findOwedByUserId/" + this.state.username).then(response => {
       this.setState({
         ...this.state,
