@@ -26,7 +26,7 @@ class App extends Component {
 
     componentDidMount() {
         this.getUser()
-        this.getNewEvent()
+        // this.getNewEvent()
         this.getPostEvent();
     }
 
@@ -34,18 +34,18 @@ class App extends Component {
         this.setState(userObject);
     }
 
-    getNewEvent() {
-        console.log("TCL: App -> getNewEvent ----------------------------> username", this.state.username)
+    // getNewEvent() {
+    //     console.log("TCL: App -> getNewEvent ----------------------------> username", this.state.username)
 
-        axios.get("/user/findOwedByUserId/" + this.state.username).then(response => {
-            this.setState({
-                ...this.state,
-                owed: response.data
-            })
-            console.log("here");
-            console.log(this.state);
-        })
-    }
+    //     axios.get("/user/findOwedByUserId/" + this.state.username).then(response => {
+    //         this.setState({
+    //             ...this.state,
+    //             owed: response.data
+    //         })
+    //         console.log("here");
+    //         console.log(this.state);
+    //     })
+    // }
 
     getPostEvent() {
         const testEvent = {

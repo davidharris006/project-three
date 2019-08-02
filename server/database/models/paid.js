@@ -6,7 +6,7 @@ const paidSchema = new Schema({
     type: String,
     required: true
   },
-  payerId: {
+  payedtoId: {
     type: String,
     required: true
   },
@@ -17,11 +17,8 @@ const paidSchema = new Schema({
   eventName: {
     type: String,
     required: true
-  },
-  paid: {
-    type: Boolean,
-    require: true
   }
+  
 });
 
 const Paids = mongoose.model("Paid", paidSchema);
