@@ -16,7 +16,7 @@ class App extends Component {
         this.state = {
             loggedIn: false,
             username: null,
-            owed: []
+            
         };
 
         this.getUser = this.getUser.bind(this);
@@ -33,6 +33,7 @@ class App extends Component {
     updateUser(userObject) {
         this.setState(userObject);
     }
+    
 
     // getNewEvent() {
     //     console.log("TCL: App -> getNewEvent ----------------------------> username", this.state.username)
@@ -95,7 +96,7 @@ class App extends Component {
                     <Route
                         exact
                         path="/"
-                        render={() => <Home loggedIn={this.state.loggedIn} />}
+                        render={() => <Home username={this.state.username} loggedIn={this.state.loggedIn} />}
                     />
                     <Route
                         path="/login"

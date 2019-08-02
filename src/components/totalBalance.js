@@ -1,7 +1,11 @@
 import React from "react";
 import "./totalBalance.css"
 
+
+
 function TotalBalanceCard(props) {
+
+    
     return (
         <div className="card text-white bg-primary border-primary mb-3 rounded card-parent">
             {/* <div className="card-header text-left">Total Balance</div> */}
