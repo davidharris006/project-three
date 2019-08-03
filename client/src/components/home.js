@@ -23,7 +23,7 @@ class Home extends Component {
 
         Promise.all([
             axios.get("/user/findOwedByUserId/" + this.props.username),
-            axios.get("/user/findPaidByUserId/" + this.props.username)
+            axios.get("/user/findYouOwedByUserId/" + this.props.username)
         ])
             .then(resultArray => {
                 this.setState({
@@ -64,7 +64,7 @@ class Home extends Component {
                         </div>
 
                         <div className="col-md-11 col-lg-5 mx-auto">
-                            <TotalBalanceCard userOwes={9} userIsOwed={8} />
+                            <TotalBalanceCard userOwes={(totalOwed).toFixed(2)} userIsOwed={(totalPaid.toFixed(2))} balance={(totalPaid-totalOwed).toFixed(2)} />
                         </div>
                     </div>
                 ) : (

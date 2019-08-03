@@ -9,6 +9,7 @@ import Home from './components/home'
 import Home2 from './components/home2'
 import Ledger from "./pages/Ledger"
 import Trips from "./pages/Trips"
+import TripsPaid from "./pages/TripsPaid"
 
 class App extends Component {
     constructor() {
@@ -34,22 +35,6 @@ class App extends Component {
     }
     
 
-<<<<<<< HEAD:src/App.js
-    // getNewEvent() {
-    //     console.log("TCL: App -> getNewEvent ----------------------------> username", this.state.username)
-
-    //     axios.get("/user/findOwedByUserId/" + this.state.username).then(response => {
-    //         this.setState({
-    //             ...this.state,
-    //             owed: response.data
-    //         })
-    //         console.log("here");
-    //         console.log(this.state);
-    //     })
-    // }
-
-=======
->>>>>>> 216749ecb3f09da64e57f55a7e5ebb95456e4a19:client/src/App.js
     getPostEvent() {
         const testEvent = {
             userId: "luke",
@@ -113,13 +98,9 @@ class App extends Component {
                         render={() => <LoginForm updateUser={this.updateUser} />}
                     />
                     <Route path="/signup" render={() => <Signup />} />
-<<<<<<< HEAD:src/App.js
-                    
-=======
-
->>>>>>> 216749ecb3f09da64e57f55a7e5ebb95456e4a19:client/src/App.js
                     <Route path="/ledger" render={() => <Ledger username={this.state.username} />} />
                     <Route path="/trips" render={() => <Trips owed={this.state.owed} currentUser={this.state.username} />} />
+                    <Route path="/tripsPaid" render={() => <TripsPaid owed={this.state.owed} currentUser={this.state.username} />} />
                 </div>
             </div>
         );
