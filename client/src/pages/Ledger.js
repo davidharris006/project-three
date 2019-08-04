@@ -14,15 +14,19 @@ class Ledger extends Component {
   };
 
   componentDidMount() {
-    this.getNewEvent();
+    this.getNewEvent(this.props.username);
+  }
+  componentWillReceiveProps(props) {
+       
+    this.getNewEvent(props.username);
   }
 
-  getNewEvent() {
+  getNewEvent(username) {
     console.log(this.props.username);
 
     Promise.all([
-      axios.get("/user/findOwedByUserId/" + this.props.username),
-      axios.get("/user/findYouOwedByUserId/" + this.props.username)
+      axios.get("/user/findOwedByUserId/" + username),
+      axios.get("/user/findYouOwedByUserId/" + username)
     ]).then(resultArray => {
       this.setState({
         ...this.state,

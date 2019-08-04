@@ -15,8 +15,8 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            loggedIn: false,
-            username: null,
+            loggedIn: false
+            
         };
 
         this.getUser = this.getUser.bind(this);
