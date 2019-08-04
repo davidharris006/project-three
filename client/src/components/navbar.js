@@ -96,9 +96,9 @@ class Navbar extends Component {
                     </Link>
                     <div class="dropdown-divider"></div>
                     <Link
-                      to="/tripsPaid"
+                      to="/events"
                       className={
-                        window.location.pathname === "/tripsPaid"
+                        window.location.pathname === "/events"
                           ? "nav-link active non-underline-link"
                           : "nav-link non-underline-link"
                       }

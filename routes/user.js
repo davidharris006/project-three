@@ -93,6 +93,11 @@ router.get("/findPaidByUserId/:paidtoId", (request, response) => {
         .then(dbModel => response.json(dbModel))
         .catch(err => response.status(422).json(err));
 });
+router.get("/newEvents/:userId", (request, response) => {
+    Events.find({userId: request.params.userId})
+        .then(dbModel => response.json(dbModel))
+        .catch(err => response.status(422).json(err));
+});
 
 router.post("/newEvent", (request, response) => {
     let participants = [];

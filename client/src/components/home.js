@@ -17,7 +17,7 @@ class Home extends Component {
 
 
     componentDidMount() {
-        console.log("mount");
+        
         this.getNewEvent(this.props.username);
     }
     componentWillReceiveProps(props) {
