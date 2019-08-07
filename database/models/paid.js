@@ -17,12 +17,7 @@ const paidSchema = new Schema({
   eventName: {
     type: String,
     required: true
-  },
-  isPaid: {
-    type: Boolean,
-    default: false
   }
-  
 });
 
 const Paids = mongoose.model("Paid", paidSchema);

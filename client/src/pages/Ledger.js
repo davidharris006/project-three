@@ -7,7 +7,6 @@ var totalOwed = 0;
 var totalPaid = 0;
 let totalBalance;
 
-
 class Ledger extends Component {
   state = {
     owed: [],
@@ -74,16 +73,16 @@ class Ledger extends Component {
               {this.state.owed.map(user => {
                 // totalOwed += user.amount
                 if (user.isPaid === true) {
-                  return 
+                  return;
+                } else {
+                  return (
+                    <Individualcard
+                      color="danger"
+                      username={user.youOwedTo}
+                      amount={user.amount}
+                    />
+                  );
                 }
-                else{
-                return (
-                  <Individualcard
-                    color="danger"
-                    username={user.youOwedTo}
-                    amount={user.amount}
-                  />
-                );}
               })}
             </tbody>
           </table>
@@ -98,16 +97,15 @@ class Ledger extends Component {
               {this.state.paid.map(user => {
                 // totalPaid += user.amount
                 if (user.isPaid === true) {
-                  return
-                }
-                else {
-                return (
-                  <Individualcard
-                    color="success"
-                    username={user.userId}
-                    amount={user.amount}
-                  />
-                );
+                  return;
+                } else {
+                  return (
+                    <Individualcard
+                      color="success"
+                      username={user.userId}
+                      amount={user.amount}
+                    />
+                  );
                 }
               })}
             </tbody>
