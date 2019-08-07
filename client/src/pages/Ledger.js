@@ -7,6 +7,7 @@ var totalOwed = 0;
 var totalPaid = 0;
 let totalBalance;
 
+
 class Ledger extends Component {
   state = {
     owed: [],
@@ -18,7 +19,6 @@ class Ledger extends Component {
   }
   componentWillReceiveProps(props) {
     this.getNewEvent(props.username);
-    console.log(this.state);
   }
 
   getNewEvent(username) {
@@ -63,40 +63,52 @@ class Ledger extends Component {
             {console.log(totalOwed)}
           </div>
         </div>
-        <div className="card bg-dark col-md-11 mx-auto pt-3">
-          <h4 className="text-left text-light pl-2">Your Ledger: </h4>
-          {console.log(this.state)}
+        {console.log(this.state)}
 
+        <div className="card bg-danger">
+          <p className="lead text-white pl-3 align-middle pt-3">
+            Events you owe money for:
+          </p>
           <table className="table table-hover">
             <tbody>
               {this.state.owed.map(user => {
-               console.log(user)
+                // totalOwed += user.amount
                 if (user.isPaid === true) {
-                  return;
-                } else {
-                  return (
-                    <Individualcard
-                      color="danger"
-                      username={user.youOwedTo}
-                      amount={user.amount}
-                    />
-                  );
+                  return 
                 }
+                else{
+                return (
+                  <Individualcard
+                    color="danger"
+                    username={user.youOwedTo}
+                    amount={user.amount}
+                  />
+                );}
               })}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="card bg-success mt-4 mb-4">
+          <p className="lead pl-3 align-middle pt-3 text-white">
+            Events you owe money for:
+          </p>
+          <table className="table table-hover">
+            <tbody>
               {this.state.paid.map(user => {
                 // totalPaid += user.amount
                 if (user.isPaid === true) {
-                  return;
+                  return
                 }
                 else {
-                console.log(totalPaid);
                 return (
                   <Individualcard
                     color="success"
                     username={user.userId}
                     amount={user.amount}
                   />
-                );}
+                );
+                }
               })}
             </tbody>
           </table>
