@@ -18,6 +18,7 @@ class Ledger extends Component {
   }
   componentWillReceiveProps(props) {
     this.getNewEvent(props.username);
+    console.log(this.state);
   }
 
   getNewEvent(username) {
@@ -69,7 +70,7 @@ class Ledger extends Component {
           <table className="table table-hover">
             <tbody>
               {this.state.owed.map(user => {
-                // totalOwed += user.amount
+               console.log(user)
                 if (user.isPaid === true) {
                   return;
                 } else {
@@ -84,7 +85,10 @@ class Ledger extends Component {
               })}
               {this.state.paid.map(user => {
                 // totalPaid += user.amount
-
+                if (user.isPaid === true) {
+                  return;
+                }
+                else {
                 console.log(totalPaid);
                 return (
                   <Individualcard
@@ -92,7 +96,7 @@ class Ledger extends Component {
                     username={user.userId}
                     amount={user.amount}
                   />
-                );
+                );}
               })}
             </tbody>
           </table>
