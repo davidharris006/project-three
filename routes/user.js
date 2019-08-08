@@ -200,7 +200,7 @@ router.post("/pay", (request, response) => {
 function updateOwedTable(dataToInsert){
     // var query = { name: 'borne' };
     // Model.findOneAndUpdate(query, { name: 'jason bourne' }, options, callback)
-    Oweds.findOneAndUpdate(dataToInsert.eventName, {})
+    Oweds.findOneAndUpdate(dataToInsert.eventName, { isPaid: true })
 }
 
 module.exports = router;
