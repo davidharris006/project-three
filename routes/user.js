@@ -72,36 +72,36 @@ router.post("/logout", (req, res) => {
 });
 
 router.get("/allUsers", (request, response) => {
-  User.find({})
-    .then(dbModel => response.json(dbModel))
-    .catch(err => response.status(422).json(err));
+    User.find({})
+        .then(dbModel => response.json(dbModel))
+        .catch(err => response.status(422).json(err));
 });
 
-router.get("/getAllEvents", (request, response)=>{
+router.get("/getAllEvents", (request, response) => {
     Events.find({})
         .then(dbModel => response.json(dbModel))
         .catch(err => response.status(422).json(err))
 })
 
-router.get("/getEventByID/:eventId", (request, response)=>{
-console.log("TCL: request", request.params.eventId)
-    
-    Events.find({_id : request.params.eventId})
+router.get("/getEventByID/:eventId", (request, response) => {
+    console.log("TCL: request", request.params.eventId)
+
+    Events.find({ _id: request.params.eventId })
         .then(dbModel => response.json(dbModel))
         .catch(err => response.status(422).json(err))
 })
 
 router.get("/findOwedByUserId/:userId", (request, response) => {
-  console.log("TCL: request=>", request.params.userId);
-  Oweds.find({ userId: request.params.userId })
-    .then(dbModel => response.json(dbModel))
-    .catch(err => response.status(422).json(err));
+    console.log("TCL: request=>", request.params.userId);
+    Oweds.find({ userId: request.params.userId })
+        .then(dbModel => response.json(dbModel))
+        .catch(err => response.status(422).json(err));
 });
 router.get("/findYouOwedByUserId/:userId", (request, response) => {
-  console.log("TCL: request=>", request.params.userId);
-  Oweds.find({ youOwedTo: request.params.userId })
-    .then(dbModel => response.json(dbModel))
-    .catch(err => response.status(422).json(err));
+    console.log("TCL: request=>", request.params.userId);
+    Oweds.find({ youOwedTo: request.params.userId })
+        .then(dbModel => response.json(dbModel))
+        .catch(err => response.status(422).json(err));
 });
 router.get("/findPaidByUserId/:paidtoId", (request, response) => {
   Paids.find({})
@@ -109,21 +109,21 @@ router.get("/findPaidByUserId/:paidtoId", (request, response) => {
     .catch(err => response.status(422).json(err));
 });
 router.post("/findPaidByUserId", (request, response) => {
-  let dataToInsert = {
-    userId: request.body.userId,
-    payerId: request.body.payerId,
-    amount: request.body.amount,
-    eventName: request.body.eventName
-  };
+    let dataToInsert = {
+        userId: request.body.userId,
+        payerId: request.body.payerId,
+        amount: request.body.amount,
+        eventName: request.body.eventName
+    };
 
-  Paids.create(dataToInsert)
-    .then(dbModel => response.json(dbModel))
-    .catch(err => response.status(422).json(err));
+    Paids.create(dataToInsert)
+        .then(dbModel => response.json(dbModel))
+        .catch(err => response.status(422).json(err));
 });
 router.get("/newEvents/:userId", (request, response) => {
-  Events.find({ userId: request.params.userId })
-    .then(dbModel => response.json(dbModel))
-    .catch(err => response.status(422).json(err));
+    Events.find({ userId: request.params.userId })
+        .then(dbModel => response.json(dbModel))
+        .catch(err => response.status(422).json(err));
 });
 router.get("/allEvents", (request, response) => {
     Events.find({})
@@ -183,7 +183,7 @@ function usersThatOwedForThisEvent(anArrayOfUsers, userPaid) {
 }
 
 router.post("/pay", (request, response) => {
-    dataToInsert={
+    dataToInsert = {
         userId: request.body.userId,
         payedtoId: request.body.payedtoId,
         amount: request.body.amount,
@@ -193,33 +193,33 @@ router.post("/pay", (request, response) => {
     }
 
     Paids.create(dataToInsert)
-    .then(dbModel => {
-        return updateOwedTable(dataToInsert)
-        // response.json(dbModel);
-    })
-    .then(dbModel => response.json(dbModel))
-    .catch(err => response.status(422).json(err))
+        .then(dbModel => {
+            return updateOwedTable(dataToInsert)
+            // response.json(dbModel);
+        })
+        .then(dbModel => response.json(dbModel))
+        .catch(err => response.status(422).json(err))
 })
-function updateOwedTable(dataToInsert){
+function updateOwedTable(dataToInsert) {
     const query = {
-        eventId: dataToInsert.eventId, 
-        userId: dataToInsert.userId, 
+        eventId: dataToInsert.eventId,
+        userId: dataToInsert.userId,
         youOwedTo: dataToInsert.payedtoId
     }
     console.log(query);
-    return Oweds.findOneAndUpdate(query, {isPaid : true})
+    return Oweds.findOneAndUpdate(query, { isPaid: true })
 }
 
 router.put("/updateOwedWithPaid", (request, response) => {
     console.log(request.body)
     const query = {
-        eventId: request.body.eventId, 
-        userId: request.body.userId, 
+        eventId: request.body.eventId,
+        userId: request.body.userId,
         youOwedTo: request.body.payedtoId
     }
-    Oweds.findOneAndUpdate(query, {isPaid: true})
-    .then(dbModel => response.json(dbModel))
-    .catch(err => response.status(422).json(err))
+    Oweds.findOneAndUpdate(query, { isPaid: true })
+        .then(dbModel => response.json(dbModel))
+        .catch(err => response.status(422).json(err))
 })
 
 module.exports = router;

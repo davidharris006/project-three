@@ -51,10 +51,20 @@ class Home extends Component {
         totalOwed = 0;
         totalPaid = 0;
         this.state.owed.map(user => {
-            return totalOwed += user.amount
+            totalOwed += user.amount
+            if (user.isPaid === true) {
+                
+                totalOwed -= user.amount;
+            }
+            return totalOwed 
         })
         this.state.paid.forEach(user => {
             totalPaid += user.amount
+            if (user.isPaid === true) {
+                
+                totalPaid -= user.amount;
+            }
+            return totalPaid
         })
 
         // console.log(this.state);
@@ -67,14 +77,13 @@ class Home extends Component {
             <div>
                 {this.setTotals()}
                 {this.props.loggedIn ? (
-                    <div className="row justify-content-center">
+                    <div className="col justify-content-center">
                         <div className="col-md-1" />
                         <div className="col-md-11 col-lg-5 mx-auto">
-                            <TripCardHome tripName={"Denver"} />
-                        </div>
-
-                        <div className="col-md-11 col-lg-5 mx-auto">
                             <TotalBalanceCard userOwes={(totalOwed).toFixed(2)} userIsOwed={(totalPaid.toFixed(2))} balance={(totalPaid - totalOwed).toFixed(2)} />
+                        </div>
+                        <div className="col-md-11 col-lg-5 mx-auto">
+                            <TripCardHome />
                         </div>
                         <div className="col-md-1" />
                     </div>
